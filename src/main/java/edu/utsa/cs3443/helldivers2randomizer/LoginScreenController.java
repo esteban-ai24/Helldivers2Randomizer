@@ -70,7 +70,7 @@ public class LoginScreenController {
 
     private void login(User user){
         User.setCurrentUser(user);
-        HD2Application.setActiveLoadout(null);
+        LoadOutService.setActiveLoadout(null);
         LoadOutService.loadCurrentUserLoadouts();
 
         try {

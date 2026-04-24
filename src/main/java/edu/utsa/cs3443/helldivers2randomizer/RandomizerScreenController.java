@@ -14,8 +14,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-
 import java.io.IOException;
+
 
 public class RandomizerScreenController {
     @FXML private StackPane rootPane;
@@ -41,7 +41,7 @@ public class RandomizerScreenController {
             welcomeText.setText("Welcome, " + User.getCurrentUser().getUsername());
         }
 
-        currentLoadout = HD2Application.getActiveLoadout();
+        currentLoadout = LoadOutService.getActiveLoadout();
         if (currentLoadout != null) {
             showLoadout(currentLoadout);
         } else {
@@ -57,7 +57,7 @@ public class RandomizerScreenController {
             LoadOutService.rerollLoadout(currentLoadout);
         }
         showLoadout(currentLoadout);
-        HD2Application.setActiveLoadout(currentLoadout);
+        LoadOutService.setActiveLoadout(currentLoadout);
     }
 
     @FXML

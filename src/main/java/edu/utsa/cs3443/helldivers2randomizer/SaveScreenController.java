@@ -79,25 +79,25 @@ public class SaveScreenController {
             return;
         }
         LoadOut fresh = LoadOutService.createRandomLoadout("Loadout");
-        HD2Application.setActiveLoadout(fresh);
+        LoadOutService.setActiveLoadout(fresh);
         openRandomizer();
     }
 
     private void handleSlot(String slot) {
         if (saveMode) {
-            LoadOut active = HD2Application.getActiveLoadout();
+            LoadOut active = LoadOutService.getActiveLoadout();
             if (active == null) return;
             LoadOutService.saveSlot(slot, active);
-            HD2Application.setActiveLoadout(active);
+            LoadOutService.setActiveLoadout(active);
             openRandomizer();
             return;
         }
 
         LoadOut slotLoadout = LoadOutService.loadSlot(slot);
         if (slotLoadout != null) {
-            HD2Application.setActiveLoadout(slotLoadout);
+            LoadOutService.setActiveLoadout(slotLoadout);
         } else {
-            HD2Application.setActiveLoadout(null);
+            LoadOutService.setActiveLoadout(null);
         }
         openRandomizer();
     }

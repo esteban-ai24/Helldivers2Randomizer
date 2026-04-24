@@ -11,8 +11,6 @@ import java.io.IOException;
 
 public class HD2Application extends Application {
 
-    private static LoadOut activeLoadout;
-
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HD2Application.class.getResource(
@@ -30,14 +28,6 @@ public class HD2Application extends Application {
         stage.setScene(scene);
         stage.setMaximized(true);
         stage.show();
-    }
-
-    public static void setActiveLoadout(LoadOut loadout) {
-        activeLoadout = loadout == null ? null : loadout.copy();
-    }
-
-    public static LoadOut getActiveLoadout() {
-        return activeLoadout == null ? null : activeLoadout.copy();
     }
 
     public static void main(String[] args) {

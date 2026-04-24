@@ -8,6 +8,15 @@ import java.util.Scanner;
 public class LoadOutService {
 
     private static final List<LoadOut> weaponLoad = new ArrayList<>();
+    private static LoadOut activeLoadout;
+
+    public static void setActiveLoadout(LoadOut loadout) {
+        activeLoadout = loadout == null ? null : loadout.copy();
+    }
+    public static LoadOut getActiveLoadout() {
+        return activeLoadout == null ? null : activeLoadout.copy();
+    }
+
     private static final String[] IMAGE_PATHS = {
             "/images/Orbital_380MM_HE_Barrage.png",
             "/images/Orbital_EMS_Strike.png",
