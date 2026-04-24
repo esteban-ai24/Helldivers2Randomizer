@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1152.0" styleClass="helldivers-theme" stylesheets="@style.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.utsa.cs3443.helldivers2randomizer.SaveScreenController">
+    <children>
+        <ImageView fx:id="backgroundImageView"
+                   fitHeight="${rootPane.height}"
+                   fitWidth="${rootPane.width}"
+                   pickOnBounds="true"
+                   preserveRatio="false">
+            <image>
+                <Image url="@/images/bg.png" />
+            </image>
+        </ImageView>
+        <VBox alignment="CENTER" spacing="24.0" style="-fx-background-color: rgba(0,0,0,0.55);">
+            <children>
+                <Label fx:id="titleLabel" styleClass="save-title" text="SELECT LOADOUT" />
+                <Label fx:id="subtitleLabel" styleClass="save-subtitle" text="Choose an occupied slot to load, or start a new run" />
+                <Button fx:id="save1Button" mnemonicParsing="false" onAction="#onSave1Click" prefHeight="68.0" prefWidth="820.0" styleClass="save-slot-button" text="Save 1" />
+                <Button fx:id="save2Button" mnemonicParsing="false" onAction="#onSave2Click" prefHeight="68.0" prefWidth="820.0" styleClass="save-slot-button" text="Save 2" />
+                <Button fx:id="save3Button" mnemonicParsing="false" onAction="#onSave3Click" prefHeight="68.0" prefWidth="820.0" styleClass="save-slot-button" text="Save 3" />
+            <Button mnemonicParsing="false" onAction="#onCreateNewClick" prefHeight="63.0" prefWidth="823.0" styleClass="hd-button-large" text="Create New Save" />
+            </children>
+            <padding><Insets bottom="40.0" top="40.0" /></padding>
+        </VBox>
+    </children>
+</StackPane>

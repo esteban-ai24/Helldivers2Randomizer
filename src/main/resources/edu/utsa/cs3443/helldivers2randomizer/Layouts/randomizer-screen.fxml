@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+
+<StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1152.0" styleClass="helldivers-theme" stylesheets="@style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.utsa.cs3443.helldivers2randomizer.RandomizerScreenController">
+    <children>
+        <ImageView fx:id="backgroundImageView" fitHeight="768.0" fitWidth="1152.0" pickOnBounds="true">
+            <image>
+                <Image url="@/images/bg.png" />
+            </image>
+        </ImageView>
+
+        <BorderPane style="-fx-background-color: rgba(0, 0, 0, 0.55);">
+            <center>
+                <VBox alignment="CENTER" spacing="20.0">
+                    <children>
+                        <Label fx:id="welcomeText" style="-fx-text-fill: #ffee00; -fx-font-size: 24px; -fx-font-weight: bold;" text="Welcome" />
+
+                        <ImageView fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@/images/loadouttitle.png" />
+                            </image>
+                        </ImageView>
+
+                        <HBox alignment="CENTER" spacing="30.0" style="-fx-background-color: rgba(59,76,125,0.8); -fx-padding: 25 40 25 40;">
+                            <children>
+
+                                <AnchorPane prefHeight="150.0" prefWidth="150.0">
+                                    <children>
+                                        <Rectangle fx:id="myBackground1" arcHeight="5.0" arcWidth="5.0" fill="#2f2e2c" height="126.0" layoutX="12.0" layoutY="12.0" stroke="BLACK" strokeType="INSIDE" width="126.0" />
+                                        <Line endX="110.0" layoutX="15.0" layoutY="10.0" startX="0.0" stroke="#777672" strokeWidth="4.0" />
+                                        <Line endX="110.0" layoutX="15.0" layoutY="140.0" startX="0.0" stroke="#777672" strokeWidth="4.0" />
+                                        <Line endY="110.0" layoutX="10.0" layoutY="15.0" startY="0.0" stroke="#777672" strokeWidth="4.0" />
+                                        <Line endY="110.0" layoutX="140.0" layoutY="15.0" startY="0.0" stroke="#777672" strokeWidth="4.0" />
+                                        <ImageView fx:id="myImage1" fitHeight="100.0" fitWidth="100.0" layoutX="25.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" />
+                                    </children>
+                                </AnchorPane>
+
+                                <AnchorPane prefHeight="150.0" prefWidth="150.0">
+                                    <children>
+                                        <Rectangle fx:id="myBackground2" arcHeight="5.0" arcWidth="5.0" fill="#2f2e2c" height="126.0" layoutX="12.0" layoutY="12.0" stroke="BLACK" strokeType="INSIDE" width="126.0" />
+                                        <Line endX="110.0" layoutX="15.0" layoutY="10.0" startX="0.0" stroke="#777672" strokeWidth="4.0" />
+                                        <Line endX="110.0" layoutX="15.0" layoutY="140.0" startX="0.0" stroke="#777672" strokeWidth="4.0" />
+                                        <Line endY="110.0" layoutX="10.0" layoutY="15.0" startY="0.0" stroke="#777672" strokeWidth="4.0" />
+                                        <Line endY="110.0" layoutX="140.0" layoutY="15.0" startY="0.0" stroke="#777672" strokeWidth="4.0" />
+                                        <ImageView fx:id="myImage2" fitHeight="100.0" fitWidth="100.0" layoutX="25.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" />
+                                    </children>
+                                </AnchorPane>
+
+                                <AnchorPane prefHeight="150.0" prefWidth="150.0">
+                                    <children>
+                                        <Rectangle fx:id="myBackground3" arcHeight="5.0" arcWidth="5.0" fill="#2f2e2c" height="126.0" layoutX="12.0" layoutY="12.0" stroke="BLACK" strokeType="INSIDE" width="126.0" />
+                                        <Line endX="110.0" layoutX="15.0" layoutY="10.0" startX="0.0" stroke="#777672" strokeWidth="4.0" />
+                                        <Line endX="110.0" layoutX="15.0" layoutY="140.0" startX="0.0" stroke="#777672" strokeWidth="4.0" />
+                                        <Line endY="110.0" layoutX="10.0" layoutY="15.0" startY="0.0" stroke="#777672" strokeWidth="4.0" />
+                                        <Line endY="110.0" layoutX="140.0" layoutY="15.0" startY="0.0" stroke="#777672" strokeWidth="4.0" />
+                                        <ImageView fx:id="myImage3" fitHeight="100.0" fitWidth="100.0" layoutX="25.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" />
+                                    </children>
+                                </AnchorPane>
+
+                                <AnchorPane prefHeight="150.0" prefWidth="150.0">
+                                    <children>
+                                        <Rectangle fx:id="myBackground4" arcHeight="5.0" arcWidth="5.0" fill="#2f2e2c" height="126.0" layoutX="12.0" layoutY="12.0" stroke="BLACK" strokeType="INSIDE" width="126.0" />
+                                        <Line endX="110.0" layoutX="15.0" layoutY="10.0" startX="0.0" stroke="#777672" strokeWidth="4.0" />
+                                        <Line endX="110.0" layoutX="15.0" layoutY="140.0" startX="0.0" stroke="#777672" strokeWidth="4.0" />
+                                        <Line endY="110.0" layoutX="10.0" layoutY="15.0" startY="0.0" stroke="#777672" strokeWidth="4.0" />
+                                        <Line endY="110.0" layoutX="140.0" layoutY="15.0" startY="0.0" stroke="#777672" strokeWidth="4.0" />
+                                        <ImageView fx:id="myImage4" fitHeight="100.0" fitWidth="100.0" layoutX="25.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" />
+                                    </children>
+                                </AnchorPane>
+
+                            </children>
+                        </HBox>
+                        <VBox alignment="CENTER" spacing="15.0">
+                            <children>
+                                <Button mnemonicParsing="false" onAction="#rerollButtonClick" prefHeight="60.0" prefWidth="350.0" styleClass="hd-button-large" text="REROLL" />
+                                <Button mnemonicParsing="false" onAction="#saveButtonClick" prefHeight="60.0" prefWidth="350.0" styleClass="hd-button-large" text="SAVE" />
+                            </children>
+                        </VBox>
+                        <Button mnemonicParsing="false" onAction="#onViewSavedClick" prefHeight="51.0" prefWidth="267.0" styleClass="hd-button-large" text="VIEW SAVES" />
+
+                        <Button mnemonicParsing="false" onAction="#logoutclick" prefHeight="51.0" prefWidth="191.0" styleClass="hd-button-large" text="LOGOUT" />
+                    </children>
+                    <padding>
+                        <Insets bottom="30.0" top="30.0" />
+                    </padding>
+                </VBox>
+            </center>
+        </BorderPane>
+    </children>
+</StackPane>
