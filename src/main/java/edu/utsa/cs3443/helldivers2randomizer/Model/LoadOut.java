@@ -2,8 +2,8 @@ package edu.utsa.cs3443.helldivers2randomizer.Model;
 
 public class LoadOut {
     private String name;
-    private String gun1;
-    private String gun2;
+    private String thing1;
+    private String thing2;
     private String thing3;
     private String thing4;
     private String image1Path;
@@ -11,15 +11,11 @@ public class LoadOut {
     private String image3Path;
     private String image4Path;
 
-    public LoadOut(String name, String gun1, String gun2, String thing3, String thing4) {
-        this(name, gun1, gun2, thing3, thing4, null, null, null, null);
-    }
-
-    public LoadOut(String name, String gun1, String gun2, String thing3, String thing4,
+    public LoadOut(String name, String thing1, String thing2, String thing3, String thing4,
                    String image1Path, String image2Path, String image3Path, String image4Path) {
         this.name = name;
-        this.gun1 = gun1;
-        this.gun2 = gun2;
+        this.thing1 = thing1;
+        this.thing2 = thing2;
         this.thing3 = thing3;
         this.thing4 = thing4;
         this.image1Path = image1Path;
@@ -28,13 +24,18 @@ public class LoadOut {
         this.image4Path = image4Path;
     }
 
+    public LoadOut(String name, String thing1, String thing2, String thing3, String thing4) {
+        this(name, thing1, thing2, thing3, thing4, null, null, null, null);
+    }
+
     public LoadOut copy() {
-        return new LoadOut(name, gun1, gun2, thing3, thing4, image1Path, image2Path, image3Path, image4Path);
+        return new LoadOut(name, thing1, thing2, thing3, thing4,
+                image1Path, image2Path, image3Path, image4Path);
     }
 
     public String getName() { return name; }
-    public String getGun1() { return gun1; }
-    public String getGun2() { return gun2; }
+    public String getThing1() { return thing1; }
+    public String getThing2() { return thing2; }
     public String getThing3() { return thing3; }
     public String getThing4() { return thing4; }
     public String getImage1Path() { return image1Path; }
@@ -43,8 +44,8 @@ public class LoadOut {
     public String getImage4Path() { return image4Path; }
 
     public void setName(String name) { this.name = name; }
-    public void setGun1(String gun1) { this.gun1 = gun1; }
-    public void setGun2(String gun2) { this.gun2 = gun2; }
+    public void setThing1(String thing1) { this.thing1 = thing1; }
+    public void setThing2(String thing2) { this.thing2 = thing2; }
     public void setThing3(String thing3) { this.thing3 = thing3; }
     public void setThing4(String thing4) { this.thing4 = thing4; }
     public void setImage1Path(String image1Path) { this.image1Path = image1Path; }

@@ -13,6 +13,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
+import java.io.File;
 import java.io.IOException;
 
 
@@ -27,6 +29,7 @@ public class RandomizerScreenController {
 
     private Stage mainStage;
     private LoadOut currentLoadout;
+    private static LoadOutService loadOutService = new LoadOutService();
 
     public void setMainStage(Stage mainStage) {
         this.mainStage = mainStage;
@@ -36,7 +39,7 @@ public class RandomizerScreenController {
     private void initialize() {
         backgroundImageView.fitWidthProperty().bind(rootPane.widthProperty());
         backgroundImageView.fitHeightProperty().bind(rootPane.heightProperty());
-
+        //LoadOutService.loadStratagemNames();
         if (User.getCurrentUser() != null && welcomeText != null) {
             welcomeText.setText("Welcome, " + User.getCurrentUser().getUsername());
         }
@@ -53,7 +56,7 @@ public class RandomizerScreenController {
     public void rerollButtonClick(ActionEvent event) {
         if (currentLoadout == null) {
             currentLoadout = LoadOutService.createRandomLoadout("Loadout");
-        } else {
+        } else{
             LoadOutService.rerollLoadout(currentLoadout);
         }
         showLoadout(currentLoadout);
@@ -69,7 +72,9 @@ public class RandomizerScreenController {
 
             SaveScreenController controller = loader.getController();
             Stage currentStage = (Stage) rootPane.getScene().getWindow();
+
             controller.setStage(currentStage);
+            controller.setLoadOutService(loadOutService);//passes loaded instance
             controller.setSaveMode(true);
 
             currentStage.getScene().setRoot(root);
@@ -77,6 +82,12 @@ public class RandomizerScreenController {
             throw new RuntimeException(e);
         }
 
+    }
+
+    // so SaveScreenController can pass the instance back
+    public void setLoadOutService(LoadOutService service) {
+        this.loadOutService = service;
+        // Re-load stratagems only if the list is empty (i.e. fresh instance wasn't used)
     }
 
     private void showLoadout(LoadOut load) {
@@ -131,7 +142,9 @@ public class RandomizerScreenController {
 
             SaveScreenController saveScreen = fxmlLoader.getController();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
             saveScreen.setStage(stage);
+            saveScreen.setLoadOutService(loadOutService);
             saveScreen.setSaveMode(false);
 
             stage.getScene().setRoot(root);

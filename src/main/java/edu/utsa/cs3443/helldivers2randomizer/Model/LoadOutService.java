@@ -2,14 +2,15 @@ package edu.utsa.cs3443.helldivers2randomizer.Model;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
 public class LoadOutService {
 
     private static final List<LoadOut> weaponLoad = new ArrayList<>();
-    private ArrayList<String> stratagemNames = new ArrayList<>(); // Holds all 80 something names of stratagems from file
-    private String[] chosenStratArr = new String[4]; //holds chosen stratagems for easy reference
+    private static final ArrayList<String> stratagemNames = new ArrayList<>(); // Holds all 80 something names of stratagems from file
+    private static final String[] chosenStratArr = new String[4]; //holds chosen stratagems for easy reference
     private static LoadOut activeLoadout;
 
     public static void setActiveLoadout(LoadOut loadout) {
@@ -19,80 +20,78 @@ public class LoadOutService {
         return activeLoadout == null ? null : activeLoadout.copy();
     }
 
-    /*private static final String[] IMAGE_PATHS = {
-            "/images/Orbital_380MM_HE_Barrage.png",
-            "/images/Orbital_EMS_Strike.png",
-            "/images/Eagle_Strafing_Run.png",
-            "/images/Railgun.png"
-    };*/
-
-    private static final String[] wep1 = {"Raygun", "Keyblade", "SG-225 Breaker", "hawktuaher gun"};
-    private static final String[] wep2 = {"Mambogun", "HernandeeznutsGun", "VettersGun", "NaeNaeGun", "ViggleAiGun", "UTSAFOREVERgun"};
-    private static final String[] things1 = {"thing1", "thing2", "thing3", "thing4"};
-    private static final String[] things2 = {"things1", "things2", "things3", "things4"};
-
     public static LoadOut createRandomLoadout(String name) {
         String finalName = (name == null || name.isBlank()) ? "Loadout" : name.trim();
-        LoadOut load = new LoadOut(finalName, randomFrom(wep1), randomFrom(wep2), randomFrom(things1), randomFrom(things2));
-        assignRandomImages(load);
+        if (!rollChosenStratagems()){
+            System.out.println("Cannot create loadout — stratagems not loaded.");
+            return null; // caller must null-check
+        }
+        LoadOut load = new LoadOut(finalName,
+                chosenStratArr[0], chosenStratArr[1],
+                chosenStratArr[2], chosenStratArr[3]);
+        applyChosenStratagemsToLoadout(load);
         weaponLoad.add(load);
         return load;
     }
 
-    public String createImgPath(String stratagemName){
-        StringBuilder sb = new StringBuilder(stratagemName);
-        sb.append(".png");
-        sb.insert(0, "/images/Stratagems/"); //reflects how it should look after organizing directories
-
-        return sb.toString();
+    public static String createImgPath(String stratagemName){
+        if (stratagemName == null) return null;
+        return "/images/Stratagems/" + stratagemName + ".png";
     }
     //reads stratagems.txt and stores names in ArrayList
-    public void loadStratagemNames(String filePath) {
+    public static void loadStratagemNames() {
         stratagemNames.clear();
-        try (InputStream is = getClass().getResourceAsStream(filePath);
-             Scanner scanner = new Scanner(is)) {
+
+        // Reads from the data/ directory
+        File file = new File("data/stratagems.txt");
+        if (!file.exists()) {
+            System.out.println("Stratagem file not found at: " + file.getAbsolutePath());
+            return;
+        }
+        try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String name = scanner.nextLine().trim();
                 if (!name.isEmpty()) stratagemNames.add(name);
             }
-        } catch (IOException | NullPointerException e) {
-            System.out.println("Stratagem file not found: " + filePath);
+            System.out.println("Loaded " + stratagemNames.size() + " stratagems.");
+        } catch (IOException e) {
+            System.out.println("Error reading stratagem file: " + e.getMessage());
         }
     }
 
-    public static void assignRandomImages(LoadOut load) {
-        if (load == null) return;
-        load.setImage1Path(randomFrom(IMAGE_PATHS));
-        load.setImage2Path(randomFrom(IMAGE_PATHS));
-        load.setImage3Path(randomFrom(IMAGE_PATHS));
-        load.setImage4Path(randomFrom(IMAGE_PATHS));
+    // picks 4 unique stratagems and stores them in chosenStratArr
+    public static boolean rollChosenStratagems() {
+        if (stratagemNames.size() < 4) {
+            System.out.println("Not enough stratagems loaded.");
+            return false;
+        }
+        List<String> pool = new ArrayList<>(stratagemNames); // copy so we can remove without touching original
+        Collections.shuffle(pool);
+        for (int i = 0; i < 4; i++) {
+            chosenStratArr[i] = pool.get(i);
+        }
+        return true;
     }
 
+    // builds the 4 image paths from chosenStratArr and applies them to a LoadOut
+    public static void applyChosenStratagemsToLoadout(LoadOut load) {
+        if (load == null) return;
+        load.setImage1Path(createImgPath(chosenStratArr[0]));
+        load.setImage2Path(createImgPath(chosenStratArr[1]));
+        load.setImage3Path(createImgPath(chosenStratArr[2]));
+        load.setImage4Path(createImgPath(chosenStratArr[3]));
+    }
+
+    //rerolls existing loadout in place
     public static void rerollLoadout(LoadOut load) {
         if (load == null) return;
-        load.setGun1(randomFrom(wep1));
-        load.setGun2(randomFrom(wep2));
-        load.setThing3(randomFrom(things1));
-        load.setThing4(randomFrom(things2));
-        assignRandomImages(load);
+        rollChosenStratagems();
+        load.setThing1(chosenStratArr[0]);
+        load.setThing2(chosenStratArr[1]);
+        load.setThing3(chosenStratArr[2]);
+        load.setThing4(chosenStratArr[3]);
+        applyChosenStratagemsToLoadout(load);
     }
-
-    /*public static void saveCurrentUserLoadouts() {
-        User current = User.getCurrentUser();
-        if (current == null) return;
-        File dir = new File("data");
-        if (!dir.exists()) dir.mkdirs();
-        File file = new File(dir, current.getUsername() + "_loadouts.csv");
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-            for (LoadOut load : weaponLoad) {
-                writer.write(convertLoadoutToLine(load));
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
 
     public static void loadCurrentUserLoadouts() {
         weaponLoad.clear();
@@ -142,7 +141,7 @@ public class LoadOutService {
     }
 
     private static String convertLoadoutToLine(LoadOut load) {
-        return safe(load.getName()) + "," + safe(load.getGun1()) + "," + safe(load.getGun2()) + "," +
+        return safe(load.getName()) + "," + safe(load.getThing1()) + "," + safe(load.getThing2()) + "," +
                 safe(load.getThing3()) + "," + safe(load.getThing4()) + "," +
                 safe(load.getImage1Path()) + "," + safe(load.getImage2Path()) + "," +
                 safe(load.getImage3Path()) + "," + safe(load.getImage4Path());

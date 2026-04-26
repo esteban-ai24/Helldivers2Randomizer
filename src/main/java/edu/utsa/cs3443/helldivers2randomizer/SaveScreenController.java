@@ -2,6 +2,7 @@ package edu.utsa.cs3443.helldivers2randomizer;
 
 import edu.utsa.cs3443.helldivers2randomizer.Model.LoadOut;
 import edu.utsa.cs3443.helldivers2randomizer.Model.LoadOutService;
+import edu.utsa.cs3443.helldivers2randomizer.Model.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 
 public class SaveScreenController {
@@ -23,9 +25,15 @@ public class SaveScreenController {
 
     private Stage stage;
     private boolean saveMode;
+    private LoadOutService loadOutService;
 
     public void setStage(Stage stage) {
         this.stage = stage;
+    }
+
+    // Called by RandomizerScreenController before navigating here
+    public void setLoadOutService(LoadOutService loadOutService) {
+        this.loadOutService = loadOutService;
     }
 
     public void setSaveMode(boolean saveMode) {
@@ -35,6 +43,8 @@ public class SaveScreenController {
 
     @FXML
     private void initialize() {
+        loadOutService = new LoadOutService();
+        LoadOutService.loadStratagemNames();
         refresh();
     }
 
@@ -78,7 +88,11 @@ public class SaveScreenController {
             handleSlot("save1");
             return;
         }
-        LoadOut fresh = LoadOutService.createRandomLoadout("Loadout");
+        LoadOut fresh = loadOutService.createRandomLoadout("Loadout");
+        if(fresh == null){
+            System.out.println("loadout creation failed.");
+            return;
+        }
         LoadOutService.setActiveLoadout(fresh);
         openRandomizer();
     }
@@ -103,12 +117,18 @@ public class SaveScreenController {
     }
 
     private void openRandomizer() {
+        if (stage == null){
+            System.out.println("ERROR: stage is null - cannot navigate");
+            return;
+        }
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/edu/utsa/cs3443/helldivers2randomizer/Layouts/randomizer-screen.fxml"));
             Parent root = fxmlLoader.load();
 
             RandomizerScreenController controller = fxmlLoader.getController();
             controller.setMainStage(stage);
+            controller.setLoadOutService(loadOutService);
+
             stage.getScene().setRoot(root);
         } catch (IOException e) {
             throw new RuntimeException(e);
