@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class LoadOutService {
 
     private static final List<LoadOut> weaponLoad = new ArrayList<>();
-    private ArrayList<String> stratagemNamesArr = new ArrayList<>(); // Holds all 80 something names of stratagems from file
+    private ArrayList<String> stratagemNames = new ArrayList<>(); // Holds all 80 something names of stratagems from file
     private String[] chosenStratArr = new String[4]; //holds chosen stratagems for easy reference
     private static LoadOut activeLoadout;
 
@@ -45,6 +45,19 @@ public class LoadOutService {
         sb.insert(0, "/images/Stratagems/"); //reflects how it should look after organizing directories
 
         return sb.toString();
+    }
+    //reads stratagems.txt and stores names in ArrayList
+    public void loadStratagemNames(String filePath) {
+        stratagemNames.clear();
+        try (InputStream is = getClass().getResourceAsStream(filePath);
+             Scanner scanner = new Scanner(is)) {
+            while (scanner.hasNextLine()) {
+                String name = scanner.nextLine().trim();
+                if (!name.isEmpty()) stratagemNames.add(name);
+            }
+        } catch (IOException | NullPointerException e) {
+            System.out.println("Stratagem file not found: " + filePath);
+        }
     }
 
     public static void assignRandomImages(LoadOut load) {

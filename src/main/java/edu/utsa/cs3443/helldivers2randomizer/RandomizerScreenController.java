@@ -36,6 +36,7 @@ public class RandomizerScreenController {
     private void initialize() {
         backgroundImageView.fitWidthProperty().bind(rootPane.widthProperty());
         backgroundImageView.fitHeightProperty().bind(rootPane.heightProperty());
+
         if (User.getCurrentUser() != null && welcomeText != null) {
             welcomeText.setText("Welcome, " + User.getCurrentUser().getUsername());
         }
