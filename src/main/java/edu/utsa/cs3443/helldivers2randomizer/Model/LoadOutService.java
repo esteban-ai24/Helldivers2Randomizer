@@ -8,6 +8,8 @@ import java.util.Scanner;
 public class LoadOutService {
 
     private static final List<LoadOut> weaponLoad = new ArrayList<>();
+    private ArrayList<String> stratagemNamesArr = new ArrayList<>(); // Holds all 80 something names of stratagems from file
+    private String[] chosenStratArr = new String[4]; //holds chosen stratagems for easy reference
     private static LoadOut activeLoadout;
 
     public static void setActiveLoadout(LoadOut loadout) {
@@ -37,6 +39,14 @@ public class LoadOutService {
         return load;
     }
 
+    public String createImgPath(String stratagemName){
+        StringBuilder sb = new StringBuilder(stratagemName);
+        sb.append(".png");
+        sb.insert(0, "/images/Stratagems/"); //reflects how it should look after organizing directories
+
+        return sb.toString();
+    }
+
     public static void assignRandomImages(LoadOut load) {
         if (load == null) return;
         load.setImage1Path(randomFrom(IMAGE_PATHS));
@@ -54,7 +64,7 @@ public class LoadOutService {
         assignRandomImages(load);
     }
 
-    public static void saveCurrentUserLoadouts() {
+    /*public static void saveCurrentUserLoadouts() {
         User current = User.getCurrentUser();
         if (current == null) return;
         File dir = new File("data");
@@ -69,7 +79,7 @@ public class LoadOutService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     public static void loadCurrentUserLoadouts() {
         weaponLoad.clear();

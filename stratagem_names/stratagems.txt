@@ -1,0 +1,85 @@
+Airburst Rocket Launcher
+Anti-Materiel Rifle
+Anti-Personnel Minefield
+Anti-Tank Emplacement
+Anti-Tank Mines
+Arc Thrower
+Autocannon Sentry
+Autocannon
+Ballistic Shield Backpack
+Bastion MK XVI
+C4 Pack
+Commando
+CQC-20
+Cremator
+Defoliation Tool
+Directional Shield
+Eagle 110MM Rocket Pods
+Eagle 500KG Bomb
+Eagle Airstrike
+Eagle Cluster Bomb
+Eagle Napalm Airstrike
+Eagle Smoke Strike
+Eagle Strafing Run
+EAT-411
+Emancipator Exosuit
+EMS Mortar Sentry
+Epoch
+Expendable Anti-Tank
+Expendable Napalm
+Fast Recon Vehicle
+Flame Sentry
+Flamethrower
+Gas Mine
+Gas Mortar Sentry
+Gatling Sentry
+GL-28
+GL-52 De-Escalator
+Grenade Launcher
+Grenadier Battlement
+Guard Dog Breath
+Guard Dog Hot Dog
+Guard Dog K-9
+Guard Dog Rover
+Guard Dog
+Heavy Machine Gun
+Hellbomb Portable
+HMG Emplacement
+Hover Pack
+Incendiary Mines
+Jump Pack
+Laser Canon
+Laser Sentry
+Machine Gun Sentry
+Machine Gun
+Maxigun
+Mortar Sentry
+One True Flag
+Orbital 120MM HE Barrage
+Orbital 380MM HE Barrage
+Orbital Airburst Strike
+Orbital EMS Strike
+Orbital Gas Strike
+Orbital Gatling Barrage
+Orbital Laser
+Orbital Napalm Barrage
+Orbital Precision Strike
+Orbital Railcannon Strike
+Orbital Smoke Strike
+Orbital Walking Barrage
+Patriot Exosuit
+Quasar Cannon
+Railgun
+Recoilless Rifle
+Rocket Sentry
+Shield Generator Backpack
+Shield Generator Relay
+Solo Silo
+Spear
+Speargun
+Stalwart
+StA-X3 W.A.S.P. Launcher
+Sterilizer
+Supply Pack
+Tesla Tower
+Warp Pack
