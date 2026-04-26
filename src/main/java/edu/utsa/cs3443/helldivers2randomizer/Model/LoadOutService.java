@@ -19,12 +19,12 @@ public class LoadOutService {
         return activeLoadout == null ? null : activeLoadout.copy();
     }
 
-    private static final String[] IMAGE_PATHS = {
+    /*private static final String[] IMAGE_PATHS = {
             "/images/Orbital_380MM_HE_Barrage.png",
             "/images/Orbital_EMS_Strike.png",
             "/images/Eagle_Strafing_Run.png",
             "/images/Railgun.png"
-    };
+    };*/
 
     private static final String[] wep1 = {"Raygun", "Keyblade", "SG-225 Breaker", "hawktuaher gun"};
     private static final String[] wep2 = {"Mambogun", "HernandeeznutsGun", "VettersGun", "NaeNaeGun", "ViggleAiGun", "UTSAFOREVERgun"};
