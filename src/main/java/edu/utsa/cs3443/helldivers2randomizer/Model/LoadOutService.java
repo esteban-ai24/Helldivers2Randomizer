@@ -6,20 +6,52 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Service class responsible for managing LoadOut objects.
+ * Handles:
+ * <ul>
+ *     <li>Random loadout generation</li>
+ *     <li>Stratagem loading and selection</li>
+ *     <li>Persistence (saving/loading loadouts to files)</li>
+ *     <li>Active loadout state management</li>
+ * </ul>
+ */
 public class LoadOutService {
 
+    /** Stores all generated loadouts for the current session */
     private static final List<LoadOut> weaponLoad = new ArrayList<>();
+
+    /** Stores all stratagem names loaded from file */
     private static final ArrayList<String> stratagemNames = new ArrayList<>(); // Holds all 80 something names of stratagems from file
+
+    /** Holds the currently selected 4 stratagems */
     private static final String[] chosenStratArr = new String[4]; //holds chosen stratagems for easy reference
+
+    /** The currently active loadout */
     private static LoadOut activeLoadout;
 
+    /**
+     * Sets the active loadout.
+     * A defensive copy is stored to prevent external modification.
+     * @param loadout the loadout to set as active, or null to clear
+     */
     public static void setActiveLoadout(LoadOut loadout) {
         activeLoadout = loadout == null ? null : loadout.copy();
     }
+
+    /**
+     * Returns a copy of the active loadout.
+     * @return a copy of the active loadout, or null if none is set
+     */
     public static LoadOut getActiveLoadout() {
         return activeLoadout == null ? null : activeLoadout.copy();
     }
 
+    /**
+     * Creates a new random loadout using 4 randomly selected stratagems.
+     * @param name the desired name of the loadout (defaults to "Loadout" if null/blank)
+     * @return the newly created LoadOut, or null if stratagems are not loaded
+     */
     public static LoadOut createRandomLoadout(String name) {
         String finalName = (name == null || name.isBlank()) ? "Loadout" : name.trim();
         if (!rollChosenStratagems()){
@@ -34,11 +66,20 @@ public class LoadOutService {
         return load;
     }
 
+    /**
+     * Generates an image path string for a given stratagem name.
+     * @param stratagemName the name of the stratagem
+     * @return the corresponding image file path, or null if input is null
+     */
     public static String createImgPath(String stratagemName){
         if (stratagemName == null) return null;
         return "/images/Stratagems/" + stratagemName + ".png";
     }
-    //reads stratagems.txt and stores names in ArrayList
+
+    /**
+     * Loads stratagem names from the file "data/stratagems.txt".
+     * Populates the internal stratagem list.
+     */
     public static void loadStratagemNames() {
         stratagemNames.clear();
 
@@ -53,13 +94,15 @@ public class LoadOutService {
                 String name = scanner.nextLine().trim();
                 if (!name.isEmpty()) stratagemNames.add(name);
             }
-            System.out.println("Loaded " + stratagemNames.size() + " stratagems.");
         } catch (IOException e) {
             System.out.println("Error reading stratagem file: " + e.getMessage());
         }
     }
 
-    // picks 4 unique stratagems and stores them in chosenStratArr
+    /**
+     * Randomly selects 4 unique stratagems from the loaded list.
+     * @return true if selection was successful, false if not enough stratagems exist
+     */
     public static boolean rollChosenStratagems() {
         if (stratagemNames.size() < 4) {
             System.out.println("Not enough stratagems loaded.");
@@ -73,7 +116,10 @@ public class LoadOutService {
         return true;
     }
 
-    // builds the 4 image paths from chosenStratArr and applies them to a LoadOut
+    /**
+     * Applies the currently selected stratagems' image paths to a LoadOut.
+     * @param load the LoadOut to update
+     */
     public static void applyChosenStratagemsToLoadout(LoadOut load) {
         if (load == null) return;
         load.setImage1Path(createImgPath(chosenStratArr[0]));
@@ -82,7 +128,10 @@ public class LoadOutService {
         load.setImage4Path(createImgPath(chosenStratArr[3]));
     }
 
-    //rerolls existing loadout in place
+    /**
+     * Rerolls the stratagems for an existing loadout and updates it in place.
+     * @param load the LoadOut to modify
+     */
     public static void rerollLoadout(LoadOut load) {
         if (load == null) return;
         rollChosenStratagems();
@@ -93,6 +142,10 @@ public class LoadOutService {
         applyChosenStratagemsToLoadout(load);
     }
 
+    /**
+     * Loads all saved loadouts for the currently logged-in user.
+     * Data is read from a CSV file in the data directory.
+     */
     public static void loadCurrentUserLoadouts() {
         weaponLoad.clear();
         User current = User.getCurrentUser();
@@ -110,6 +163,11 @@ public class LoadOutService {
         }
     }
 
+    /**
+     * Saves a LoadOut to a specific slot for the current user.
+     * @param slot the slot identifier (e.g., "slot1")
+     * @param load the LoadOut to save
+     */
     public static void saveSlot(String slot, LoadOut load) {
         User current = User.getCurrentUser();
         if (current == null || slot == null || load == null) return;
@@ -124,6 +182,11 @@ public class LoadOutService {
         }
     }
 
+    /**
+     * Loads a LoadOut from a specific slot for the current user.
+     * @param slot the slot identifier
+     * @return the loaded LoadOut, or null if not found
+     */
     public static LoadOut loadSlot(String slot) {
         User current = User.getCurrentUser();
         if (current == null || slot == null) return null;
@@ -140,6 +203,11 @@ public class LoadOutService {
         return null;
     }
 
+    /**
+     * Converts a LoadOut object into a CSV string.
+     * @param load the LoadOut to convert
+     * @return a comma-separated string representation
+     */
     private static String convertLoadoutToLine(LoadOut load) {
         return safe(load.getName()) + "," + safe(load.getThing1()) + "," + safe(load.getThing2()) + "," +
                 safe(load.getThing3()) + "," + safe(load.getThing4()) + "," +
@@ -147,6 +215,11 @@ public class LoadOutService {
                 safe(load.getImage3Path()) + "," + safe(load.getImage4Path());
     }
 
+    /**
+     * Converts a CSV string into a LoadOut object.
+     * @param line the CSV line
+     * @return the parsed LoadOut
+     */
     private static LoadOut convertLineToLoadout(String line) {
         String[] parts = line.split(",", -1);
         if (parts.length >= 9) {
@@ -155,6 +228,10 @@ public class LoadOutService {
         return new LoadOut(parts[0], parts[1], parts[2], parts[3], parts[4]);
     }
 
+    /**
+     * Safely converts a string to a non-null value.
+     * @param value the input string
+     * @return the original string or an empty string if null
+     */
     private static String safe(String value) { return value == null ? "" : value; }
-    private static String randomFrom(String[] items) { return items[(int) (Math.random() * items.length)]; }
 }
