@@ -201,15 +201,6 @@ public class RandomizerScreenController {
      * @param imageView the ImageView to update
      * @param path the resource path of the image
      */
-    /*private void setImageFromPath(ImageView imageView, String path) {
-        if (path == null || path.isBlank()) {
-            imageView.setImage(null);
-            imageView.setVisible(false);
-            return;
-        }
-        imageView.setImage(new Image(getClass().getResourceAsStream(path)));
-        imageView.setVisible(true);
-    }*/
     private void setImageFromPath(ImageView imageView, String path) {
         if (path == null || path.isBlank()) {
             imageView.setVisible(false);
