@@ -48,7 +48,7 @@ HMG Emplacement
 Hover Pack
 Incendiary Mines
 Jump Pack
-Laser Canon
+Laser Cannon
 Laser Sentry
 Machine Gun Sentry
 Machine Gun
@@ -72,7 +72,7 @@ Quasar Cannon
 Railgun
 Recoilless Rifle
 Rocket Sentry
-Shield Generator Backpack
+Shield Generator Pack
 Shield Generator Relay
 Solo Silo
 Spear
